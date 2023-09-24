@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "dev": "npm run server & npm run client",
+    "deploy": "npm run build --prefix client && npm run start --prefix server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "validate": "lint-staged"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "3.1.4",
+    "lint-staged": "^11.0.1",
+    "prettier": "^2.3.1"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx}": [
+      "prettier --write"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

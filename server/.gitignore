@@ -1,0 +1,8 @@
+node_modules/
+
+## IntelliJ
+.idea
+
+## build folders for server
+/build
+/build-server
