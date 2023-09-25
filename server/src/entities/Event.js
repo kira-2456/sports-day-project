@@ -4,53 +4,45 @@ class Event {
   constructor(eventName, eventCategory, startTime, endTime, status, capacity) {
     this._id = _uniqueId();
 
-    this._eventName = eventName;
-    this._eventCategory = eventCategory;
+    this.eventName = eventName;
+    this.eventCategory = eventCategory;
 
-    this._startTime = startTime;
-    this._endTime = endTime;
+    this.startTime = startTime;
+    this.endTime = endTime;
 
-    this._status = status;
-
-    this._capacity = capacity;
+    this.status = status;
   }
 
   getId = () => this._id;
 
-  getEventName = () => this._eventName;
+  getEventName = () => this.eventName;
 
   setEventName = eventName => {
-    this._eventName = eventName;
+    this.eventName = eventName;
   };
 
-  getEventCategory = () => this._eventCategory;
+  getEventCategory = () => this.eventCategory;
 
   setEventCategory = eventCategory => {
-    this._eventCategory = eventCategory;
+    this.eventCategory = eventCategory;
   };
 
-  getStartTime = () => this._startTime;
+  getStartTime = () => this.startTime;
 
   setStartTime = startTime => {
-    this._startTime = startTime;
+    this.startTime = startTime;
   };
 
-  getEndTime = () => this._endTime;
+  getEndTime = () => this.endTime;
 
   setEndTime = endTime => {
-    this._endTime = endTime;
+    this.endTime = endTime;
   };
 
-  getStatus = () => this._status;
+  getStatus = () => this.status;
 
   setStatus = status => {
-    this._status = status;
-  };
-
-  getCapacity = () => this._capacity;
-
-  setCapacity = capacity => {
-    this._capacitys = capacity;
+    this.status = status;
   };
 }
 

@@ -1,10 +1,23 @@
-import _map from 'lodash/map';
-
+import Database from 'entities/Database';
 import EventStatus from 'enums/EventStatus';
 import { getFilteredData } from 'utils/filterUtils';
 
 // Event Database
-const Events = new Map();
+const Events = new Database();
+
+/**
+ * @param eventId: eventId to be validated
+ * @type object
+ * Desc: validate event
+ */
+const validateEvent = eventId =>
+  new Promise((res, rej) => {
+    if (Events.has(eventId)) {
+      res(Events.get(eventId));
+    }
+
+    rej(new Error('invalid eventId'));
+  });
 
 /**
  * @param event: newly created event object
@@ -40,7 +53,7 @@ const cancelEvent = eventId => {
  * Desc: to get all events in pagination manner after applying filters
  */
 const getAllEvents = (skip, limit, filters) => {
-  const allEvents = _map(Array.from(Events), event => event[1]);
+  const allEvents = Events.values();
 
   const filteredEvents = getFilteredData({ data: allEvents, filters });
   const sortedEvents = filteredEvents.sort((eventA, eventB) => eventA.startTime - eventB.startTime);
@@ -48,11 +61,12 @@ const getAllEvents = (skip, limit, filters) => {
   return sortedEvents.slice(skip, Math.min(skip + limit, sortedEvents.length));
 };
 
-module.exports = {
+exports = {
   Events,
 
   addEvent,
   cancelEvent,
 
   getAllEvents,
+  validateEvent,
 };

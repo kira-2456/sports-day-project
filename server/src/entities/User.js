@@ -1,38 +1,47 @@
 import _uniqueId from 'lodash/uniqueId';
 
+import UserRole from 'enums/UserRole';
+
 class User {
-  constructor(firstName, lastName, userName, role = 'user') {
+  constructor(emailId, role = UserRole.USER, firstName, lastName, userName) {
     this._id = _uniqueId();
+    this.emailId = emailId;
 
-    this._firstName = firstName;
-    this._lastName = lastName;
-    this._userName = userName;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.userName = userName;
 
-    this._role = role;
+    this.role = role;
   }
 
   getId = () => this._id;
 
-  getFirstName = () => this._firstName;
+  getEmailId = () => this.emailId;
+
+  setEmailId = emailId => {
+    this.emailId = emailId;
+  };
+
+  getFirstName = () => this.firstName;
 
   setFirstName = firstName => {
-    this._firstName = firstName;
+    this.firstName = firstName;
   };
 
-  getLastName = () => this._lastName;
+  getLastName = () => this.lastName;
 
   setLastName = lastName => {
-    this._lastName = lastName;
+    this.lastName = lastName;
   };
 
-  getUserName = () => this._userName;
+  getUserName = () => this.userName;
 
   setUserName = userName => {
-    this._userName = userName;
+    this.userName = userName;
   };
 
   get fullName() {
-    return this._firstName + this._lastName;
+    return this.firstName + this.lastName;
   }
 }
 
