@@ -1,5 +1,5 @@
+import { ErrorType } from 'enums/ErrorType';
 import Database from 'entities/Database';
-import EventStatus from 'enums/EventStatus';
 import { getFilteredData } from 'utils/filterUtils';
 
 // Event Database
@@ -16,7 +16,7 @@ const validateEvent = eventId =>
       res(Events.get(eventId));
     }
 
-    rej(new Error('invalid eventId'));
+    rej(new Error(ErrorType.INVALID_EVENT));
   });
 
 /**
@@ -33,15 +33,15 @@ const addEvent = event => {
 /**
  * @param eventId: eventId to be cancelled
  * @type object
- * Desc: to cancel event in the events database
+ * Desc: to delete event from the events database
  */
-const cancelEvent = eventId => {
+const deleteEvent = eventId => {
   if (!Events.has(eventId)) {
-    throw new Error(`invalid eventId : ${eventId}`);
+    throw new Error(ErrorType.INVALID_EVENT);
   }
 
   const event = Events.get(eventId);
-  event.setStatus(EventStatus.CANCELLED);
+  Events.delete(eventId);
   return event;
 };
 
@@ -61,12 +61,6 @@ const getAllEvents = (skip, limit, filters) => {
   return sortedEvents.slice(skip, Math.min(skip + limit, sortedEvents.length));
 };
 
-exports = {
-  Events,
+export default Events;
 
-  addEvent,
-  cancelEvent,
-
-  getAllEvents,
-  validateEvent,
-};
+export { addEvent, deleteEvent, getAllEvents, validateEvent };

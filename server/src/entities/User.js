@@ -3,13 +3,12 @@ import _uniqueId from 'lodash/uniqueId';
 import UserRole from 'enums/UserRole';
 
 class User {
-  constructor(emailId, role = UserRole.USER, firstName, lastName, userName) {
+  constructor({ emailId, role = UserRole.USER, firstName, lastName }) {
     this._id = _uniqueId();
     this.emailId = emailId;
 
     this.firstName = firstName;
     this.lastName = lastName;
-    this.userName = userName;
 
     this.role = role;
   }
@@ -32,12 +31,6 @@ class User {
 
   setLastName = lastName => {
     this.lastName = lastName;
-  };
-
-  getUserName = () => this.userName;
-
-  setUserName = userName => {
-    this.userName = userName;
   };
 
   get fullName() {

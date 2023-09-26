@@ -1,7 +1,7 @@
 import _uniqueId from 'lodash/uniqueId';
 
 class Event {
-  constructor(eventName, eventCategory, startTime, endTime, status, capacity) {
+  constructor({ eventName, eventCategory, startTime, endTime }) {
     this._id = _uniqueId();
 
     this.eventName = eventName;
@@ -9,8 +9,6 @@ class Event {
 
     this.startTime = startTime;
     this.endTime = endTime;
-
-    this.status = status;
   }
 
   getId = () => this._id;
@@ -37,12 +35,6 @@ class Event {
 
   setEndTime = endTime => {
     this.endTime = endTime;
-  };
-
-  getStatus = () => this.status;
-
-  setStatus = status => {
-    this.status = status;
   };
 }
 

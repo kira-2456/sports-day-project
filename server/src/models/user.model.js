@@ -1,7 +1,7 @@
 import _isEmpty from 'lodash/isEmpty';
 
 import Database from 'entities/Database';
-import UserErrorType from 'enums/UserErrorType';
+import { UserErrorType } from 'enums/ErrorType';
 
 // User Database
 const Users = new Database();
@@ -21,45 +21,34 @@ const validateUser = userId =>
   });
 
 /**
- * @param user: newly created user
- * @type object
- * Desc: to add user in the users database
- */
-const createUser = user => {
-  const emailId = user.getEmailId();
-
-  const isUserAlreadyPresent = _isEmpty(Users.find('emailId', emailId));
-
-  if (isUserAlreadyPresent) {
-    throw new Error(UserErrorType.INVALID_EMAIL_ADDRESS);
-  }
-
-  const userId = user.getId();
-  Users.set(userId, user);
-  return user;
-};
-
-/**
  * @param emailId: emailId used for login
  * @type object
  * Desc: to verify email login request
  */
-const validateLogin = emailId => {
-  const user = Users.find('emailId', emailId);
-  const isUserPresent = !_isEmpty(user);
+const validateUserEmailId = emailId =>
+  new Promise((res, rej) => {
+    const user = Users.findOne('emailId', emailId);
+    const isUserPresent = !_isEmpty(user);
 
-  if (!isUserPresent) {
-    throw new Error(UserErrorType.INVALID_EMAIL_ADDRESS);
-  }
+    if (!isUserPresent) {
+      rej(new Error(UserErrorType.INVALID_EMAIL_ADDRESS));
+    }
 
-  return user;
-};
+    res(user);
+  });
 
-exports = {
-  Users,
+/**
+ * @param user: newly created user
+ * @type object
+ * Desc: to add user in the users database
+ */
+const createUser = user =>
+  new Promise(res => {
+    const userId = user.getId();
+    Users.set(userId, user);
+    res(user);
+  });
 
-  validateUser,
+export default Users;
 
-  createUser,
-  validateLogin,
-};
+export { createUser, validateUser, validateUserEmailId };

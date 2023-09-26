@@ -19,6 +19,16 @@ export const getFilteredData = ({ data, filters }) =>
         case FilterType.NIN: {
           return _every(filterValues, filterValue => !_includes(fieldValues, filterValue));
         }
+        case FilterType.GT: {
+          const filterValue = filterValues?.[0];
+          const fieldValue = fieldValues?.[0];
+          return fieldValue > filterValue;
+        }
+        case FilterType.LT: {
+          const filterValue = filterValues?.[0];
+          const fieldValue = fieldValues?.[0];
+          return fieldValue < filterValue;
+        }
         default: {
           return false;
         }
