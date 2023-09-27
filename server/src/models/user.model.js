@@ -49,6 +49,18 @@ const createUser = user =>
     res(user);
   });
 
+/**
+ * @param userId
+ * @type object
+ * Desc: to delete user in the users database
+ */
+const deleteUser = userId =>
+  new Promise(res => {
+    const user = Users.get(userId);
+    Users.delete(userId);
+    res(user);
+  });
+
 export default Users;
 
-export { createUser, validateUser, validateUserEmailId };
+export { createUser, deleteUser, validateUser, validateUserEmailId };

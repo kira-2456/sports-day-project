@@ -1,9 +1,8 @@
-import 'dotenv/config';
 import https from 'https';
 
 import app from './app';
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 
 const server = https.createServer(app);
 

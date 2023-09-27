@@ -19,7 +19,7 @@ const signUp = async (req, res) => {
 
   try {
     // Check if the user already exists
-    const userStored = await validateUserEmailId(emailId);
+    const [userStored] = await to(validateUserEmailId(emailId));
 
     if (userStored) {
       return res.status(400).json(UserErrorType.INVALID_EMAIL_ADDRESS);
@@ -40,7 +40,7 @@ const signUp = async (req, res) => {
 
     const token = await req.authInterface.create({ payload });
     res.cookie('token', token, { httpOnly: true });
-    res.sendStatus(200);
+    res.status(201).json(newUser);
   } catch (err) {
     req.logger.error(err.message);
     res.status(500).send(ErrorType.INTERNAL_SERVER_ERROR);
@@ -63,7 +63,7 @@ const login = async (req, res) => {
     const [user, error] = await to(validateUserEmailId(emailId));
 
     if (error) {
-      return res.status(400).json(UserErrorType.INVALID_EMAIL_ADDRESS);
+      return res.status(401).json(UserErrorType.INVALID_EMAIL_ADDRESS);
     }
 
     // Create and return a JWT token for authentication
@@ -75,7 +75,7 @@ const login = async (req, res) => {
 
     const token = await req.authInterface.create({ payload });
     res.cookie('token', token, { httpOnly: true });
-    res.sendStatus(200);
+    res.json(user);
   } catch (err) {
     req.logger.error(err.message);
     res.status(500).send(ErrorType.INTERNAL_SERVER_ERROR);
