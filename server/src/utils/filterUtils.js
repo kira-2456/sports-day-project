@@ -10,7 +10,7 @@ export const getFilteredData = ({ data, filters }) =>
   _filter(data, item =>
     _every(filters, filter => {
       const { field, filterType, values: filterValues = [] } = filter;
-      const fieldValues = _castArray(data?.[field]) || [];
+      const fieldValues = _castArray(item?.[field]) || [];
 
       switch (filterType) {
         case FilterType.IN: {

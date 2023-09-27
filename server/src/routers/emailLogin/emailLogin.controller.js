@@ -1,20 +1,10 @@
-import { check, validationResult } from 'express-validator';
-
 import to from 'utils/await-to';
 import User from 'entities/User';
 import { UserErrorType, ErrorType } from 'enums/ErrorType';
 import { validateUserEmailId, createUser } from 'models/user.model';
 
-const validateSignUpPayload = [check('emailId').isEmail(), check('firstName').isString(), check('lastName').isString()];
-
 // Sign-up route
 const signUp = async (req, res) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   const { emailId, firstName, lastName } = req.body;
 
   try {
@@ -47,15 +37,7 @@ const signUp = async (req, res) => {
   }
 };
 
-const validateSignInPayload = [check('emailId').isEmail()];
-
 const login = async (req, res) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   const { emailId } = req.body;
 
   try {
@@ -87,4 +69,4 @@ const logout = (req, res) => {
   res.sendStatus(200);
 };
 
-export { signUp, validateSignUpPayload, login, validateSignInPayload, logout };
+export { signUp, login, logout };

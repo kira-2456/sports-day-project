@@ -1,10 +1,10 @@
 import { UserErrorType } from 'enums/ErrorType';
 
 const authMiddleware = async (req, res, next) => {
-  const token = req.cookies.token;
+  const { token } = req.cookies;
 
   if (!token) {
-    return res.status(401).json({ msg: 'No token, authorization denied' });
+    return res.status(401).json(UserErrorType.INVALID_TOKEN);
   }
 
   try {

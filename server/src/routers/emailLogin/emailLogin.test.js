@@ -1,11 +1,13 @@
 import request from 'supertest';
+
 import app from 'app';
 import { UserErrorType } from 'enums/ErrorType';
 import { deleteUser } from 'models/user.model';
 
-describe('Authentication API', () => {
+describe('Auth API', () => {
   // Store a user ID for testing purposes
   let userId;
+  let token;
 
   it('should create a new user', async () => {
     const response = await request(app)
@@ -14,6 +16,7 @@ describe('Authentication API', () => {
 
     expect(response.status).toBe(201);
     userId = response.body._id;
+    token = response.headers?.['set-cookie']?.[0].split(';')?.[0];
   });
 
   it('should throw an error when signing up with an existing username', async () => {
@@ -38,8 +41,14 @@ describe('Authentication API', () => {
     expect(response.body).toBe(UserErrorType.INVALID_EMAIL_ADDRESS);
   });
 
+  it('should deny access to api route when not authenticated', async () => {
+    const response = await request(app).get('/api/events');
+
+    expect(response.status).toBe(401);
+  });
+
   it('should log out a user', async () => {
-    const response = await request(app).get('/email-auth/logout');
+    const response = await request(app).get('/email-auth/logout').set('Cookie', [token]);
 
     expect(response.status).toBe(200);
   });

@@ -45,7 +45,7 @@ const registerEvent = async (userId, eventId) => {
     throw new Error(ErrorType.USER_EXCEEDS_EVENT_LIMIT);
   }
 
-  if (event.getStartTime() - REGISTRATION_THRESHOLD_TIME_LIMIT > currentTime) {
+  if (event.getStartTime() - REGISTRATION_THRESHOLD_TIME_LIMIT < currentTime) {
     throw new Error(ErrorType.EVENT_REGISTRATION_CLOSED);
   }
 
@@ -61,7 +61,7 @@ const registerEvent = async (userId, eventId) => {
   });
 
   if (!isEventAvailableForUser) {
-    throw new Error(ErrorType.EVENT_NOT_POSSIBLE_FOR_USER);
+    throw new Error(ErrorType.COINCIDING_EVENTS);
   }
 
   UserEventIdMapping.set(userId, [...upcomingEventsForUser, eventId]);
@@ -76,16 +76,16 @@ const registerEvent = async (userId, eventId) => {
 const unregisterEvent = async (userId, eventId) => {
   const event = await validateEvent(eventId);
 
-  if (event.startTime() < Date.now()) {
-    throw new Error(ErrorType.EVENT_UN_REGISTRATION_CLOSED);
-  }
-
   const upcomingEventIdsForUser = UserEventIdMapping.get(userId);
   const isUserRegisteredForEvent = _includes(upcomingEventIdsForUser, eventId);
 
   // check if the user is registered to this event
   if (!isUserRegisteredForEvent) {
     throw new Error(ErrorType.INVALID_EVENT);
+  }
+
+  if (event.getStartTime() < Date.now()) {
+    throw new Error(ErrorType.EVENT_UN_REGISTRATION_CLOSED);
   }
 
   UserEventIdMapping.set(userId, _pull(upcomingEventIdsForUser, eventId));
@@ -99,14 +99,15 @@ const unregisterEvent = async (userId, eventId) => {
  * @type object
  * Desc: to get all events in pagination manner after applying filters
  */
-const getAllUserRegisteredEvents = async (userId, skip, limit, filters) => {
-  const upcomingEventsForUser = _map(UserEventIdMapping.get(userId) || [], eventId => Events.get(eventId));
+const getAllUserRegisteredEvents = (userId, skip, limit, filters) =>
+  new Promise(res => {
+    const upcomingEventsForUser = _map(UserEventIdMapping.get(userId) || [], eventId => Events.get(eventId));
 
-  const filteredEvents = getFilteredData({ data: upcomingEventsForUser, filters });
-  const sortedEvents = filteredEvents.sort((eventA, eventB) => eventA.startTime - eventB.startTime);
+    const filteredEvents = getFilteredData({ data: upcomingEventsForUser, filters });
+    const sortedEvents = filteredEvents.sort((eventA, eventB) => eventA.startTime - eventB.startTime);
 
-  return sortedEvents.slice(skip, Math.min(skip + limit, sortedEvents.length));
-};
+    res(sortedEvents.slice(skip, Math.min(skip + limit, sortedEvents.length)));
+  });
 
 export default UserEventIdMapping;
 

@@ -1,11 +1,11 @@
 import to from 'utils/await-to';
 import { registerEvent, unregisterEvent, getAllUserRegisteredEvents } from 'models/userEventIdMapping.model';
 
-const getRegisteredEvents = (req, res) => {
+const getRegisteredEvents = async (req, res) => {
   const { id: userId } = req.user;
   const { skip, limit, filters } = req.body;
 
-  const paginatedEvents = getAllUserRegisteredEvents(userId, skip, limit, filters);
+  const paginatedEvents = await getAllUserRegisteredEvents(userId, skip, limit, filters);
 
   return res.json(paginatedEvents);
 };
@@ -17,7 +17,7 @@ const unregister = async (req, res) => {
   const [, error] = await to(unregisterEvent(userId, eventId));
 
   if (error) {
-    res.send(400).json(error.message);
+    return res.status(400).json(error.message);
   }
 
   res.json(eventId);
@@ -30,10 +30,10 @@ const register = async (req, res) => {
   const [, error] = await to(registerEvent(userId, eventId));
 
   if (error) {
-    res.send(400).json(error.message);
+    return res.status(400).json(error.message);
   }
 
-  res.json(eventId);
+  return res.json(eventId);
 };
 
 export { register as registerEvent, unregister as unregisterEvent, getRegisteredEvents };

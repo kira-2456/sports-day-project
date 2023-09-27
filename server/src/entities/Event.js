@@ -7,8 +7,8 @@ class Event {
     this.eventName = eventName;
     this.eventCategory = eventCategory;
 
-    this.startTime = startTime;
-    this.endTime = endTime;
+    this.startTime = new Date(startTime).getTime();
+    this.endTime = new Date(endTime).getTime();
   }
 
   getId = () => this._id;

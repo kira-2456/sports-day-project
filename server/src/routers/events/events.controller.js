@@ -1,9 +1,9 @@
 import { getAllEvents } from 'models/event.model';
 
-const getEvents = (req, res) => {
+const getEvents = async (req, res) => {
   const { skip, limit, filters } = req.body;
 
-  const paginatedEvents = getAllEvents(skip, limit, filters);
+  const paginatedEvents = await getAllEvents(skip, limit, filters);
 
   return res.json(paginatedEvents);
 };
