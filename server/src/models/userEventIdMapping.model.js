@@ -64,7 +64,7 @@ const registerEvent = async (userId, eventId) => {
     throw new Error(ErrorType.COINCIDING_EVENTS);
   }
 
-  UserEventIdMapping.set(userId, [...upcomingEventsForUser, eventId]);
+  UserEventIdMapping.set(userId, [..._map(upcomingEventsForUser, event => event.getId()), eventId]);
 };
 
 /**

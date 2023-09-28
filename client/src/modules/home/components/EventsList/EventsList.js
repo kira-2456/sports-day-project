@@ -94,7 +94,7 @@ const EventsList = ({ id, type, service, title, actionProps = EMPTY_OBJECT }) =>
     return (
       <div className={styles.emptyContainer}>
         {renderHeader()}
-        <EmptyView title={'No events'} />
+        <EmptyView title={'No events'} className={styles.emptyList} />
       </div>
     );
   }

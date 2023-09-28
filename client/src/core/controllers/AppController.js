@@ -10,6 +10,8 @@ import PreferenceController from 'core/controllers/PreferenceController';
 import configureStore from 'store/configureStore';
 import { getApiConfig } from 'core/utils/apiUtils';
 import { initializeUser } from 'modules/auth/ducks/user';
+import RoutePaths from 'navigators/constants/paths';
+import Routes from 'navigators/constants/routes';
 
 let instance = null;
 
@@ -43,7 +45,8 @@ export default class AppController {
 
   onUserLogin = ({ user }) => {
     this.initializeUserSession({ user });
-    return this.userSession.saveUser(user);
+    this.userSession.saveUser(user);
+    window.location.href = RoutePaths[Routes.home].path;
   };
 
   initializeUserSession = ({ user }) => {

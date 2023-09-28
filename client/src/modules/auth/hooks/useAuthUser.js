@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import _get from 'lodash/get';
 
 import AppController from 'core/controllers/AppController';
+import to from 'core/utils/await-to';
 
 import authService from '../services/authService';
 import { SAVE_USER, USER_DUCK_PATH } from '../ducks/user';
-import to from '../../../core/utils/await-to';
 
 const useAuthUser = () => {
   const dispatch = useDispatch();

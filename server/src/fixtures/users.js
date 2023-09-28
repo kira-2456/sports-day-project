@@ -2,13 +2,13 @@ import UserRole from 'enums/UserRole';
 
 export default [
   {
-    email: 'admin@gmail.com',
+    emailId: 'admin@gmail.com',
     firstName: 'admin',
     lastName: 'user',
     role: UserRole.ADMIN,
   },
   {
-    email: 'normal@gmail.com',
+    emailId: 'normal@gmail.com',
     firstName: 'normal',
     lastName: 'user',
   },

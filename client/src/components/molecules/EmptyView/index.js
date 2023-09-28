@@ -3,9 +3,9 @@ import Typography from '@mui/material/Typography';
 
 import styles from './EmptyView.module.css';
 
-const EmptyView = ({ title, description }) => {
+const EmptyView = ({ title, description, className }) => {
   return (
-    <div className={styles.container}>
+    <div className={[styles.container, className].join(' ')}>
       <Typography variant="h5" gutterBottom>
         {title}
       </Typography>

@@ -12,4 +12,4 @@ export const REQUEST_TYPE = {
   LOAD_PREV: 'LOAD_PREV',
 };
 
-export const DEFAULT_PAGE_SIZE = 5;
+export const DEFAULT_PAGE_SIZE = 10;

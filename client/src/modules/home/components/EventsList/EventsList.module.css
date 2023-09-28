@@ -16,3 +16,10 @@
 
     align-items: center;
 }
+
+.emptyList {
+    position: absolute;
+
+    top: 0;
+    bottom: 0
+}

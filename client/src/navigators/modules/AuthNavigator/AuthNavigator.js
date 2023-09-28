@@ -14,6 +14,7 @@ const FallbackScene = () => (
   <Route
     key={Routes.notFound}
     component={() => {
+      window.location.href = RoutePaths[Routes.home].path;
       return <Redirect to={RoutePaths[Routes.home].path} />;
     }}
     {...RoutePaths[Routes.notFound]}

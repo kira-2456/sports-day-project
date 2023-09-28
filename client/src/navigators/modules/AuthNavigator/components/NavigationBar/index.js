@@ -16,8 +16,8 @@ const Navbar = () => {
 
   const onLogout = useCallback(async () => {
     hideAlertBox();
+    window.location.href = RoutePaths[Routes.login].path;
     await to(logout());
-    history.push(RoutePaths[Routes.login].path);
   }, []);
 
   const handleLogout = useCallback(() => {

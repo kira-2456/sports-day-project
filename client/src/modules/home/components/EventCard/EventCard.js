@@ -8,6 +8,7 @@ import { format } from 'date-fns';
 import { useLazyFetch } from 'core/utils/hooks';
 import eventReader from 'core/readers/eventReader';
 import DateFormats from 'core/constants/dateFormats';
+import { hideAlertBox, showAlertBox } from 'molecules/AlertBox';
 
 import styles from './EventCard.module.css';
 
@@ -32,7 +33,28 @@ const EventCard = ({
 
   const onAdaptedSuccess = useCallback(() => onSuccess?.(item), [item, onSuccess]);
 
-  const { loading, fetch } = useLazyFetch({ fetchData: service, onSuccess: onAdaptedSuccess });
+  const onFailure = useCallback(
+    error => {
+      showAlertBox({
+        title: `${actionLabel} Failed`,
+        description: error?.error || 'Please try again later!',
+        actions: [
+          {
+            label: 'Ok',
+            color: 'primary',
+            onPress: hideAlertBox,
+          },
+        ],
+      });
+    },
+    [actionLabel]
+  );
+
+  const { loading, fetch } = useLazyFetch({
+    fetchData: service,
+    onSuccess: onAdaptedSuccess,
+    onFailure: onFailure,
+  });
 
   const onActionPress = useCallback(() => fetch?.({ eventId }), [fetch, eventId]);
 

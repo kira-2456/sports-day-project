@@ -18,15 +18,13 @@ class JWTAuth {
 
   verify = ({ token }) =>
     new Promise((resolve, reject) => {
-      resolve(
-        jwt.verify(token, this.secretKey, {}, err => {
-          if (err) {
-            reject(err);
-          }
+      jwt.verify(token, this.secretKey, {}, (err, payload) => {
+        if (err) {
+          reject(err);
+        }
 
-          resolve();
-        })
-      );
+        resolve(payload);
+      });
     });
 }
 
