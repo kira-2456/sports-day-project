@@ -4,7 +4,7 @@ const authMiddleware = async (req, res, next) => {
   const { token } = req.cookies;
 
   if (!token) {
-    return res.status(401).json(UserErrorType.INVALID_TOKEN);
+    return res.status(401).json({ error: UserErrorType.INVALID_TOKEN });
   }
 
   try {
@@ -12,7 +12,7 @@ const authMiddleware = async (req, res, next) => {
     req.user = decoded.user;
     next();
   } catch (err) {
-    res.status(401).json(UserErrorType.INVALID_TOKEN);
+    res.status(401).json({ error: UserErrorType.INVALID_TOKEN });
   }
 };
 

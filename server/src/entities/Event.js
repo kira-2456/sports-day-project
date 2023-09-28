@@ -2,7 +2,7 @@ import _uniqueId from 'lodash/uniqueId';
 
 class Event {
   constructor({ eventName, eventCategory, startTime, endTime }) {
-    this._id = _uniqueId();
+    this.id = _uniqueId();
 
     this.eventName = eventName;
     this.eventCategory = eventCategory;
@@ -11,7 +11,7 @@ class Event {
     this.endTime = new Date(endTime).getTime();
   }
 
-  getId = () => this._id;
+  getId = () => this.id;
 
   getEventName = () => this.eventName;
 

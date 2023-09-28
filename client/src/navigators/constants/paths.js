@@ -2,7 +2,7 @@ import routes from './routes';
 
 export default {
   [routes.login]: {
-    path: 'login',
+    path: '/login',
   },
   [routes.signUp]: {
     path: '/signUp',

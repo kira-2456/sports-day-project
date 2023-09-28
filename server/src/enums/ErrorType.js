@@ -4,6 +4,7 @@ const UserErrorType = {
 
   // auth
   INVALID_TOKEN: 'INVALID_TOKEN',
+  INVALID_USER: 'INVALID_USER',
 };
 
 const ErrorType = {

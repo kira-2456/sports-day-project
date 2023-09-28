@@ -18,7 +18,7 @@ describe('Users API', () => {
       .post('/email-auth/sign-up')
       .send({ emailId: 'test@gmail.com', firstName: 'test', lastName: 'user' });
 
-    userId = response.body._id;
+    userId = response.body.user.id;
     token = response.headers?.['set-cookie']?.[0].split(';')?.[0];
   });
 
@@ -56,7 +56,7 @@ describe('Users API', () => {
       .set('Cookie', [token]);
 
     expect(response.status).toBe(400);
-    expect(response.body).toBe(ErrorType.INVALID_EVENT);
+    expect(response.body.error).toBe(ErrorType.INVALID_EVENT);
   });
 
   it('coinciding events', async () => {
@@ -66,7 +66,7 @@ describe('Users API', () => {
       .set('Cookie', [token]);
 
     expect(response.status).toBe(400);
-    expect(response.body).toBe(ErrorType.COINCIDING_EVENTS);
+    expect(response.body.error).toBe(ErrorType.COINCIDING_EVENTS);
   });
 
   // it('register for an event after registration is closed', async () => {
@@ -86,7 +86,7 @@ describe('Users API', () => {
       .set('Cookie', [token]);
 
     expect(response.status).toBe(400);
-    expect(response.body).toBe(ErrorType.INVALID_EVENT);
+    expect(response.body.error).toBe(ErrorType.INVALID_EVENT);
   });
 
   afterAll(async () => {

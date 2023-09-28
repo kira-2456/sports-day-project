@@ -4,7 +4,7 @@ import UserRole from 'enums/UserRole';
 
 class User {
   constructor({ emailId, role = UserRole.USER, firstName, lastName }) {
-    this._id = _uniqueId();
+    this.id = _uniqueId();
     this.emailId = emailId;
 
     this.firstName = firstName;
@@ -13,7 +13,7 @@ class User {
     this.role = role;
   }
 
-  getId = () => this._id;
+  getId = () => this.id;
 
   getEmailId = () => this.emailId;
 

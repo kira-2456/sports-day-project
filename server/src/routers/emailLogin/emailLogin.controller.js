@@ -12,7 +12,7 @@ const signUp = async (req, res) => {
     const [userStored] = await to(validateUserEmailId(emailId));
 
     if (userStored) {
-      return res.status(400).json(UserErrorType.INVALID_EMAIL_ADDRESS);
+      return res.status(400).json({ error: UserErrorType.INVALID_EMAIL_ADDRESS });
     }
 
     // Create a new user
@@ -30,10 +30,10 @@ const signUp = async (req, res) => {
 
     const token = await req.authInterface.create({ payload });
     res.cookie('token', token, { httpOnly: true });
-    res.status(201).json(newUser);
+    res.status(201).json({ user: newUser });
   } catch (err) {
     req.logger.error(err.message);
-    res.status(500).send(ErrorType.INTERNAL_SERVER_ERROR);
+    res.status(500).send({ error: ErrorType.INTERNAL_SERVER_ERROR });
   }
 };
 
@@ -45,7 +45,7 @@ const login = async (req, res) => {
     const [user, error] = await to(validateUserEmailId(emailId));
 
     if (error) {
-      return res.status(401).json(UserErrorType.INVALID_EMAIL_ADDRESS);
+      return res.status(401).json({ error: UserErrorType.INVALID_EMAIL_ADDRESS });
     }
 
     // Create and return a JWT token for authentication
@@ -57,10 +57,10 @@ const login = async (req, res) => {
 
     const token = await req.authInterface.create({ payload });
     res.cookie('token', token, { httpOnly: true });
-    res.json(user);
+    res.json({ user });
   } catch (err) {
     req.logger.error(err.message);
-    res.status(500).send(ErrorType.INTERNAL_SERVER_ERROR);
+    res.status(500).send({ error: ErrorType.INTERNAL_SERVER_ERROR });
   }
 };
 

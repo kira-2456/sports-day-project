@@ -8,6 +8,7 @@ import UserSession from 'core/controllers/UserSession';
 import PreferenceController from 'core/controllers/PreferenceController';
 
 import configureStore from 'store/configureStore';
+import { getApiConfig } from 'core/utils/apiUtils';
 import { initializeUser } from 'modules/auth/ducks/user';
 
 let instance = null;
@@ -33,7 +34,7 @@ export default class AppController {
   init() {
     this.store = configureStore();
     this.userSession = null;
-    this.apiClient = ApiClient.create();
+    this.apiClient = ApiClient.create(getApiConfig());
   }
 
   getStore() {

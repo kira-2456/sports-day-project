@@ -16,7 +16,7 @@ describe('Events API', () => {
       .post('/email-auth/sign-up')
       .send({ emailId: 'test@gmail.com', firstName: 'test', lastName: 'user' });
 
-    userId = response.body._id;
+    userId = response.body.user.id;
     token = response.headers?.['set-cookie']?.[0].split(';')?.[0];
   });
 

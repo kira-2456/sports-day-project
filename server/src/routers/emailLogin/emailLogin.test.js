@@ -15,7 +15,7 @@ describe('Auth API', () => {
       .send({ emailId: 'test@gmail.com', firstName: 'test', lastName: 'user' });
 
     expect(response.status).toBe(201);
-    userId = response.body._id;
+    userId = response.body.user.id;
     token = response.headers?.['set-cookie']?.[0].split(';')?.[0];
   });
 
@@ -25,7 +25,7 @@ describe('Auth API', () => {
       .send({ emailId: 'test@gmail.com', firstName: 'test', lastName: 'user' });
 
     expect(response.status).toBe(400); // Expect a bad request status
-    expect(response.body).toBe(UserErrorType.INVALID_EMAIL_ADDRESS);
+    expect(response.body.error).toBe(UserErrorType.INVALID_EMAIL_ADDRESS);
   });
 
   it('should authenticate a user', async () => {
@@ -38,7 +38,7 @@ describe('Auth API', () => {
     const response = await request(app).post('/email-auth/login').send({ emailId: 'test_invalid@gmail.com' });
 
     expect(response.status).toBe(401); // Unauthorized
-    expect(response.body).toBe(UserErrorType.INVALID_EMAIL_ADDRESS);
+    expect(response.body.error).toBe(UserErrorType.INVALID_EMAIL_ADDRESS);
   });
 
   it('should deny access to api route when not authenticated', async () => {

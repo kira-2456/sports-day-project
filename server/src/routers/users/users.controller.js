@@ -1,5 +1,18 @@
 import to from 'utils/await-to';
+import { validateUser } from 'models/user.model';
 import { registerEvent, unregisterEvent, getAllUserRegisteredEvents } from 'models/userEventIdMapping.model';
+
+const getUser = async (req, res) => {
+  const { id: userId } = req.user;
+
+  const [user, error] = await to(validateUser(userId));
+
+  if (error) {
+    return res.status(400).json({ error: error.message });
+  }
+
+  return res.json({ user });
+};
 
 const getRegisteredEvents = async (req, res) => {
   const { id: userId } = req.user;
@@ -17,10 +30,10 @@ const unregister = async (req, res) => {
   const [, error] = await to(unregisterEvent(userId, eventId));
 
   if (error) {
-    return res.status(400).json(error.message);
+    return res.status(400).json({ error: error.message });
   }
 
-  res.json(eventId);
+  res.json({ eventId });
 };
 
 const register = async (req, res) => {
@@ -30,10 +43,10 @@ const register = async (req, res) => {
   const [, error] = await to(registerEvent(userId, eventId));
 
   if (error) {
-    return res.status(400).json(error.message);
+    return res.status(400).json({ error: error.message });
   }
 
-  return res.json(eventId);
+  return res.json({ eventId });
 };
 
-export { register as registerEvent, unregister as unregisterEvent, getRegisteredEvents };
+export { register as registerEvent, unregister as unregisterEvent, getRegisteredEvents, getUser };

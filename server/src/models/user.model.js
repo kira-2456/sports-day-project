@@ -17,7 +17,7 @@ const validateUser = userId =>
       res(Users.get(userId));
     }
 
-    rej(new Error('invalid userId'));
+    rej(new Error(UserErrorType.INVALID_USER));
   });
 
 /**

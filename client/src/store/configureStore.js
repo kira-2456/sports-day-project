@@ -1,4 +1,4 @@
-import { compose, createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
@@ -8,11 +8,11 @@ import { batch } from './reduxBatchDispatch';
 
 let store = null;
 
-function getInitialState() {
+const getInitialState = () => {
   return {};
-}
+};
 
-export default function configureStore(initialState = getInitialState()) {
+const configureStore = (initialState = getInitialState()) => {
   if (store) {
     return store;
   }
@@ -22,7 +22,9 @@ export default function configureStore(initialState = getInitialState()) {
     middlewares.push(logger);
   }
 
-  store = createStore(rootReducer, initialState, compose(applyMiddleware(...middlewares)));
+  store = createStore(rootReducer, initialState, applyMiddleware(...middlewares));
 
   return store;
-}
+};
+
+export default configureStore;

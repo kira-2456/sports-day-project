@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import _noop from 'lodash/noop';
 
 const createPromise = (getValue, callback = _noop) =>
