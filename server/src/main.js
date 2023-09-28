@@ -1,4 +1,4 @@
-import https from 'https';
+import http from 'http';
 
 import initializeData from 'utils/initializeData';
 
@@ -6,7 +6,7 @@ import app from './app';
 
 const PORT = process.env.PORT || 8000;
 
-const server = https.createServer(app);
+const server = http.createServer(app);
 
 const createServer = async () => {
   await initializeData();

@@ -4,7 +4,7 @@
     [
       "module-resolver",
       {
-        "root": ["./src", "./server"],
+        "root": ["./src/components/", "./src/", "./server"],
         "extensions": [".js", ".model.js", ".json"]
       }
     ]

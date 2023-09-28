@@ -13,7 +13,7 @@ const logout = () => {
 };
 
 const signUp = ({ emailId, firstName, lastName }) => {
-  return AppController.getApiClient().post('/email-auth/login/', { emailId, firstName, lastName });
+  return AppController.getApiClient().post('/email-auth/sign-up/', { emailId, firstName, lastName });
 };
 
 export default {

@@ -1,5 +1,5 @@
-export const USER_KEY = 'user';
-export const USER_DUCK_PATH = ['user'];
+export const USER_KEY = 'auth';
+export const USER_DUCK_PATH = ['auth'];
 export const SAVE_USER = 'SAVE_USER';
 
 export const initialState = {

@@ -4,8 +4,8 @@ export default {
   [routes.login]: {
     path: '/login',
   },
-  [routes.signUp]: {
-    path: '/signUp',
+  [routes.signup]: {
+    path: '/signup',
   },
 
   // auth

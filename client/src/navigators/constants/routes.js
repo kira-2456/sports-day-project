@@ -1,7 +1,7 @@
 export default {
   // unAuth routes
   login: 'login',
-  signUp: 'signUp',
+  signup: 'signup',
   notFound: 'notFound',
 
   // auth routes

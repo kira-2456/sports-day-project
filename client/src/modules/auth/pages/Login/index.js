@@ -1,5 +1,3 @@
-const Login = () => {
-  return <p>jkl</p>;
-};
+import Login from './Login';
 
 export default Login;

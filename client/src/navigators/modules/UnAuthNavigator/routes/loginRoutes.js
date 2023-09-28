@@ -11,11 +11,11 @@ export default {
       exact: true,
     },
   },
-  [Routes.signUp]: {
-    key: Routes.signUp,
+  [Routes.signup]: {
+    key: Routes.signup,
     routeConfig: {
       component: Loadable({ loader: () => import('modules/auth/pages/SignUp') }),
-      ...RoutePaths[Routes.signUp],
+      ...RoutePaths[Routes.signup],
       exact: true,
     },
   },

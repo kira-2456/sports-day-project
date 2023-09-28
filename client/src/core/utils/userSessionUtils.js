@@ -25,10 +25,6 @@ const userSessionUtils = {
   getUser() {
     return safeExec(() => AppController.getUserSession().getCachedUserDetails());
   },
-
-  isCurrentUser(userId) {
-    return userSessionUtils.getUserId() === userId;
-  },
 };
 
 module.exports = userSessionUtils;

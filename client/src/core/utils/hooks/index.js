@@ -20,14 +20,14 @@ export const useFetcher = ({ shouldFetch = true, fetchData }, inputs = []) => {
       .catch(fetchError => {
         setMeta({ loading: false, error: fetchError });
       });
-  }, inputs); // eslint-disable-line react-hooks/exhaustive-deps
+  }, inputs);
 
   return { data, error: meta.error, loading: meta.loading };
 };
 
-export const useLazyFetch = ({ shouldFetch = true, fetchData, onSuccess, onFailure, onProgress }, inputs = []) => {
+export const useLazyFetch = ({ fetchData, onSuccess, onFailure, onProgress }, inputs = []) => {
   const [data, setData] = useState(null);
-  const [meta, setMeta] = useState({ loading: !!shouldFetch, error: null });
+  const [meta, setMeta] = useState({ loading: false, error: null });
 
   const onProgressRef = useRef(onProgress);
   onProgressRef.current = onProgress;
@@ -40,10 +40,6 @@ export const useLazyFetch = ({ shouldFetch = true, fetchData, onSuccess, onFailu
 
   const fetch = useCallback(
     (...args) => {
-      if (!shouldFetch) {
-        return;
-      }
-
       // when inputs change, useEffect will be executed again which needs the prev state re-setted
       setMeta({ loading: true, error: null });
       onProgressRef.current?.();
@@ -51,16 +47,25 @@ export const useLazyFetch = ({ shouldFetch = true, fetchData, onSuccess, onFailu
       fetchData(...args)
         .then(response => {
           setData(response);
-          onSuccessRef?.current();
+          onSuccessRef?.current(response?.data);
           setMeta({ loading: false, error: null });
         })
-        .catch(fetchError => {
-          onFailureRef?.current(fetchError);
-          setMeta({ loading: false, error: fetchError });
+        .catch(error => {
+          onFailureRef?.current?.(error?.response?.data);
+          setMeta({ loading: false, error: error?.response?.data });
         });
     },
-    [fetchData, shouldFetch]
+    [fetchData]
   );
 
   return { data, error: meta.error, loading: meta.loading, fetch };
+};
+
+export const useSetState = initialState => {
+  const [state, set] = useState(initialState);
+  const setState = useCallback(patch => {
+    set(prevState => ({ ...prevState, ...(patch instanceof Function ? patch(prevState) : patch) }));
+  }, []);
+
+  return [state, setState];
 };
