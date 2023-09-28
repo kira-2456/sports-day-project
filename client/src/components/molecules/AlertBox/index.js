@@ -51,7 +51,7 @@ class AlertBox extends React.Component {
     return (
       <DialogActions>
         {_map(actions, (action, index) => (
-          <Button onClick={action.onPress} color={action.color || 'primary'}>
+          <Button key={index.toString()} onClick={action.onPress} color={action.color || 'primary'}>
             {action.label}
           </Button>
         ))}

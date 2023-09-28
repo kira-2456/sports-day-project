@@ -21,7 +21,12 @@ const useLogout = () => {
     dispatch(updateRouterType({ routerType: ROUTER_TYPES.UNAUTHORIZED }));
   }, []);
 
-  const { fetch, data, error, loading } = useLazyFetch({
+  const {
+    fetch: logout,
+    data,
+    error,
+    loading,
+  } = useLazyFetch({
     fetchData: authService.logout,
 
     onSuccess,
@@ -29,7 +34,7 @@ const useLogout = () => {
   });
 
   return {
-    fetch,
+    logout,
 
     data,
     error,

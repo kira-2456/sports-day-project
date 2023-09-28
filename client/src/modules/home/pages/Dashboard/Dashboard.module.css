@@ -1,0 +1,22 @@
+/* App.css */
+.app-container {
+    display: flex;
+    flex: 1;
+}
+
+.left-column {
+    flex: 1;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.divider {
+    width: 2px;
+    background-color: #ccc;
+}
+
+.right-column {
+    flex: 1;
+    padding: 20px;
+    background-color: #e0e0e0;
+}

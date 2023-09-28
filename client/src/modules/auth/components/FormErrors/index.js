@@ -9,7 +9,13 @@ const FormErrors = ({ errors }) => {
     return null;
   }
 
-  return _map(errors, error => <p className={styles.errorText}>{error?.message}</p>);
+  return (
+    <div className={styles.container}>
+      {_map(errors, error => (
+        <p className={styles.errorText}>{error?.message}</p>
+      ))}
+    </div>
+  );
 };
 
 export default React.memo(FormErrors);

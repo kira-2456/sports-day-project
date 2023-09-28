@@ -1,0 +1,12 @@
+.title {
+    text-decoration: none;
+    color: inherit;
+}
+
+.space {
+    flex-grow: 1;
+}
+
+.exitApp {
+    margin-left: 1px;
+}

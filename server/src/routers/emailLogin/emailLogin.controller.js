@@ -29,7 +29,7 @@ const signUp = async (req, res) => {
     };
 
     const token = await req.authInterface.create({ payload });
-    res.cookie('token', token, { httpOnly: true });
+    res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: true });
     res.status(201).json({ user: newUser });
   } catch (err) {
     req.logger.error(err.message);
@@ -56,7 +56,7 @@ const login = async (req, res) => {
     };
 
     const token = await req.authInterface.create({ payload });
-    res.cookie('token', token, { httpOnly: true });
+    res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: true });
     res.json({ user });
   } catch (err) {
     req.logger.error(err.message);

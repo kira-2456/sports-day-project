@@ -11,13 +11,7 @@ import _over from 'lodash/over';
 
 const { CancelToken } = axios;
 
-const DefaultHeaders = {
-  Pragma: 'no-cache',
-  Expires: '0',
-  type: 'application/json; charset=utf-8',
-  accept: 'application/json; charset=utf-8',
-  'Content-Type': 'application/json; charset=utf-8',
-};
+const DefaultHeaders = {};
 
 class ApiClient {
   constructor(options = {}) {

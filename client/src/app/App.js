@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Provider } from 'react-redux';
 import { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -11,6 +12,8 @@ import MainNavigator from 'navigators/modules/MainNavigator';
 import OverlayComponents from 'navigators/components/OverlayComponents';
 
 import styles from './App.module.css';
+
+axios.defaults.withCredentials = true;
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);

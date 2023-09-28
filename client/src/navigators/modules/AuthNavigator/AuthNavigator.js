@@ -1,11 +1,12 @@
 import React from 'react';
 import _map from 'lodash/map';
 import _values from 'lodash/values';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 
 import Routes from '../../constants/routes';
 import RoutePaths from '../../constants/paths';
 import authRoutes from './routes/authRoutes';
+import NavigationBar from './components/NavigationBar';
 
 const FallbackScene = () => (
   <Route
@@ -18,9 +19,12 @@ const FallbackScene = () => (
 );
 
 const AuthNavigator = () => {
+  const location = useLocation();
+
   return (
     <>
-      <Switch>
+      <NavigationBar />
+      <Switch location={location}>
         {_map(_values(authRoutes), route => {
           const { key, routeConfig } = route;
           return <Route key={key} {...routeConfig} />;

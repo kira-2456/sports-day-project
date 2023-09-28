@@ -47,7 +47,6 @@ const Login = () => {
   const renderFields = useCallback(
     () => (
       <TextField
-        margin="normal"
         required
         fullWidth
         autoFocus
@@ -91,7 +90,7 @@ const Login = () => {
       <CssBaseline />
       <Box className={styles.contentContainer}>
         <Header />
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} className={styles.formContainer}>
           {renderFields()}
           <FormErrors errors={formErrors} />
           {renderSubmitAction()}
