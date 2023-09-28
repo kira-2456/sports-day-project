@@ -8,7 +8,7 @@ import { registerEvent, unregisterEvent, getRegisteredEvents, getUser } from './
 const router = new Router();
 
 router.get('/', getUser);
-router.get('/events', paginationValidator, getRegisteredEvents);
+router.post('/events', paginationValidator, getRegisteredEvents);
 router.post('/registerEvent', registrationValidator, registerEvent);
 router.post('/unregisterEvent', registrationValidator, unregisterEvent);
 

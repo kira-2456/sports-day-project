@@ -1,4 +1,11 @@
 .container {
     display: flex;
     flex: 1;
+    flex-direction: column;
+
+    -webkit-box-align: stretch;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    align-items: stretch;
+    box-sizing: border-box;
 }

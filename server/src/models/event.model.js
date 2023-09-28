@@ -61,7 +61,12 @@ const getAllEvents = (skip, limit, filters) =>
     const filteredEvents = getFilteredData({ data: allEvents, filters });
     const sortedEvents = filteredEvents.sort((eventA, eventB) => eventA.startTime - eventB.startTime);
 
-    res(sortedEvents.slice(skip, Math.min(skip + limit, sortedEvents.length)));
+    const slicedEvents = sortedEvents.slice(skip, Math.min(skip + limit, sortedEvents.length));
+
+    res({
+      events: slicedEvents,
+      hasMore: skip + limit < sortedEvents.length,
+    });
   });
 
 export default Events;

@@ -1,6 +1,6 @@
 import _map from 'lodash/map';
 import _every from 'lodash/every';
-import _pull from 'lodash/pull';
+import _filter from 'lodash/filter';
 import _reduce from 'lodash/reduce';
 import _includes from 'lodash/includes';
 
@@ -88,7 +88,10 @@ const unregisterEvent = async (userId, eventId) => {
     throw new Error(ErrorType.EVENT_UN_REGISTRATION_CLOSED);
   }
 
-  UserEventIdMapping.set(userId, _pull(upcomingEventIdsForUser, eventId));
+  UserEventIdMapping.set(
+    userId,
+    _filter(upcomingEventIdsForUser, id => id !== eventId)
+  );
 };
 
 /**
@@ -105,8 +108,12 @@ const getAllUserRegisteredEvents = (userId, skip, limit, filters) =>
 
     const filteredEvents = getFilteredData({ data: upcomingEventsForUser, filters });
     const sortedEvents = filteredEvents.sort((eventA, eventB) => eventA.startTime - eventB.startTime);
+    const slicedEvents = sortedEvents.slice(skip, Math.min(skip + limit, sortedEvents.length));
 
-    res(sortedEvents.slice(skip, Math.min(skip + limit, sortedEvents.length)));
+    res({
+      events: slicedEvents,
+      hasMore: skip + limit < sortedEvents.length,
+    });
   });
 
 export default UserEventIdMapping;

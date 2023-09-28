@@ -4,6 +4,7 @@ import _identity from 'lodash/identity';
 import _throttle from 'lodash/throttle';
 
 import AppController from 'core/controllers/AppController';
+import { showAlertBox, hideAlertBox } from 'molecules/AlertBox';
 
 const UNAUTHORISED_USER_DEBOUNCE_INTERVAL = 5000;
 const UNAUTHORISED_STATUS_CODES = new Set([401, 403]);
@@ -16,9 +17,18 @@ const getErrorMessages = () => ({
 });
 
 const handleUnauthorisedUser = _throttle(
-  async ({ alertMessage, isAccessRevoked } = EMPTY_OBJECT) => {
+  async ({ alertMessage = EMPTY_OBJECT } = EMPTY_OBJECT) => {
     if (alertMessage) {
-      alert(alertMessage);
+      showAlertBox({
+        ...alertMessage,
+        actions: [
+          {
+            label: 'Ok',
+            color: 'primary',
+            onPress: hideAlertBox,
+          },
+        ],
+      });
     }
 
     await AppController.getInstance().onUserLogout();
@@ -35,7 +45,7 @@ export const unauthorizedRequestInterceptor = {
     }
 
     if (UNAUTHORISED_STATUS_CODES.has(error.response.status)) {
-      const isInvalidToken = _get(error, ['response', 'data', 'message']) === 'INVALID_TOKEN';
+      const isInvalidToken = _get(error, ['response', 'data', 'error']) === 'INVALID_TOKEN';
 
       if (isInvalidToken) {
         handleUnauthorisedUser({ alertMessage: getErrorMessages().INVALID_TOKEN });

@@ -1,3 +1,6 @@
+import _reduce from 'lodash/reduce';
+import { set } from 'dot-prop-immutable';
+
 export const EMAIL_VALIDATION_REGEX =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))\s*$/;
 
@@ -25,29 +28,26 @@ export const waitTime = async time => {
   });
 };
 
-/**
- * @param {string} inputString the input value
- * @param {integer} [seed] optionally pass the hash of the previous chunk
- * @returns {integer | string}
- *
- * Ref: http://isthe.com/chongo/tech/comp/fnv/
- */
-export const get32bitHashCode = (inputString, seed) => {
-  let i,
-    hashValue = seed === undefined ? 0x811c9dc5 : seed;
-
-  for (i = 0; i < inputString.length; i++) {
-    hashValue ^= inputString.charCodeAt(i);
-    hashValue += (hashValue << 1) + (hashValue << 4) + (hashValue << 7) + (hashValue << 8) + (hashValue << 24);
-  }
-
-  return (hashValue >>> 0).toString(16);
-};
-
 export const safeParse = (stringifiedJSON, fallback = EMPTY_OBJECT) => {
   try {
     return stringifiedJSON && JSON.parse(stringifiedJSON);
   } catch (e) {
     return fallback;
   }
+};
+
+export const normalize = (items, idExtractor) => {
+  const { ids, map } = _reduce(
+    items,
+    (result, currentItem) => {
+      const id = idExtractor(currentItem);
+      return {
+        ids: result.ids.concat(id),
+        map: set(result.map, [id], currentItem),
+      };
+    },
+    { ids: [], map: {} }
+  );
+
+  return { ids, map };
 };

@@ -18,9 +18,9 @@ const getRegisteredEvents = async (req, res) => {
   const { id: userId } = req.user;
   const { skip, limit, filters } = req.body;
 
-  const paginatedEvents = await getAllUserRegisteredEvents(userId, skip, limit, filters);
+  const { events, hasMore } = await getAllUserRegisteredEvents(userId, skip, limit, filters);
 
-  return res.json(paginatedEvents);
+  return res.json({ events, hasMore });
 };
 
 const unregister = async (req, res) => {

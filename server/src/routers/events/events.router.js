@@ -6,6 +6,6 @@ import { getRegisteredEvents } from './events.controller';
 
 const router = new Router();
 
-router.get('/', paginationValidator, getRegisteredEvents);
+router.post('/', paginationValidator, getRegisteredEvents);
 
 export default app => app.use('/events', router);

@@ -1,8 +1,9 @@
 import Loadable from 'react-loadable';
-import { CircularProgress } from '@mui/material';
 
-export default ({ loader, LoadingPlaceholder = CircularProgress }) =>
+import LoadingPlaceholder from 'molecules/LoadingPlaceholder';
+
+export default ({ loader, LoadingPlaceholderComponent = LoadingPlaceholder }) =>
   Loadable({
     loader: loader,
-    loading: props => <LoadingPlaceholder />,
+    loading: props => <LoadingPlaceholderComponent {...props} />,
   });

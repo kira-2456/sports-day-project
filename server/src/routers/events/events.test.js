@@ -22,7 +22,7 @@ describe('Events API', () => {
 
   it('fetch events', async () => {
     const response = await request(app)
-      .get('/api/events')
+      .post('/api/events')
       .send({ skip: 0, limit: 1, filters: [{ filterType: 'GT', field: 'startTime', values: [0] }] })
       .set('Cookie', [token]);
 

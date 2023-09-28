@@ -7,7 +7,7 @@
     "test": "jest",
     "test-watch": "jest --watch",
     "start": "babel-node src/main.js",
-    "dev": "nodemon --exec babel-node src/main.js"
+    "dev": "nodemon --inspect --exec babel-node src/main.js"
   },
   "repository": {
     "type": "git"

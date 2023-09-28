@@ -1,22 +1,28 @@
 /* App.css */
-.app-container {
+.appContainer {
     display: flex;
-    flex: 1;
+    flex-direction: row;
+    flex-grow: 1;
 }
 
-.left-column {
+.leftColumn {
     flex: 1;
-    padding: 20px;
-    background-color: #f0f0f0;
+    display: flex;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 .divider {
     width: 2px;
     background-color: #ccc;
+
+    height: 100%;
 }
 
-.right-column {
+.rightColumn {
     flex: 1;
-    padding: 20px;
-    background-color: #e0e0e0;
+    display: flex;
+
+    padding-left: 16px;
+    padding-right: 16px;
 }

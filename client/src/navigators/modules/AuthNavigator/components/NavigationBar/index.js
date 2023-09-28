@@ -40,7 +40,7 @@ const Navbar = () => {
   }, [onLogout]);
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky" className={styles.bar}>
       <Toolbar>
         <Typography variant="h6" component={Link} to="/" className={styles.title}>
           Sports Day Events Dashboard

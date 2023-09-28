@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import _map from 'lodash/map';
 import _values from 'lodash/values';
 import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
+
+import useAuthUser from 'modules/auth/hooks/useAuthUser';
 
 import Routes from '../../constants/routes';
 import RoutePaths from '../../constants/paths';
@@ -19,7 +21,21 @@ const FallbackScene = () => (
 );
 
 const AuthNavigator = () => {
+  const [isReady, setIsReady] = useState(false);
   const location = useLocation();
+
+  const { fetchUser } = useAuthUser();
+
+  useEffect(() => {
+    (async () => {
+      await fetchUser();
+      setIsReady(true);
+    })();
+  }, []);
+
+  if (!isReady) {
+    return null;
+  }
 
   return (
     <>

@@ -24,7 +24,7 @@ describe('Users API', () => {
 
   it('fetch user registered events', async () => {
     const response = await request(app)
-      .get('/api/users/events')
+      .post('/api/users/events')
       .send({ userId, skip: 0, limit: 1, filters: [{ filterType: 'GT', field: 'startTime', values: [0] }] })
       .set('Cookie', [token]);
 
@@ -33,7 +33,7 @@ describe('Users API', () => {
 
   it('fetch events with wrong payload', async () => {
     const response = await request(app)
-      .get('/api/users/events')
+      .post('/api/users/events')
       .send({ userId, skip: 0, filters: [{ filterType: 'GT', field: 'startTime', values: [0] }] })
       .set('Cookie', [token]);
 

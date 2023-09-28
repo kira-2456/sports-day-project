@@ -1,7 +1,7 @@
 import AppController from 'core/controllers/AppController';
 
 const fetchCurrentUser = () => {
-  return AppController.getApiClient().get('/users/');
+  return AppController.getApiClient().get('/api/users/');
 };
 
 const login = ({ emailId }) => {
