@@ -14,12 +14,13 @@ const useAuthUser = () => {
   const user = useSelector(store => _get(store, [...USER_DUCK_PATH, 'user'], EMPTY_OBJECT));
 
   const fetchUser = useCallback(async () => {
-    const [user, error] = await to(authService.fetchCurrentUser());
+    const [response, error] = await to(authService.fetchCurrentUser());
 
-    if (error) {
+    if (error || !response?.data?.user) {
       return;
     }
 
+    const user = response?.data?.user || EMPTY_OBJECT;
     dispatch({ type: SAVE_USER, user });
     await AppController.getUserSession()?.saveUser?.(user);
     return { user };

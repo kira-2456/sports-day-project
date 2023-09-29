@@ -14,6 +14,10 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   const onRegister = useCallback(item => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
     return dispatch(addEvent({ eventId: eventReader.id(item), type: EVENT_LIST_TYPES.USER }));
   }, []);
 

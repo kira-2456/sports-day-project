@@ -58,7 +58,7 @@ const EventsList = ({ id, type, service, title, actionProps = EMPTY_OBJECT }) =>
 
   const renderFooter = useCallback(() => {
     return (
-      <div style={{ textAlign: 'center', marginTop: '16px' }}>
+      <div style={{ textAlign: 'center', marginTop: '16px', marginBottom: '16px' }}>
         {hasMore && (
           <Button variant="contained" color="primary" onClick={fetchMore} disabled={isLoadingMore}>
             {isLoading ? 'Loading...' : 'Load More'}

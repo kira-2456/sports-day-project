@@ -61,8 +61,8 @@ export default class AppController {
   onUserLogout = async () => {
     await this.__cleanUserSession();
     await this.cleanupPreferences();
-    this.apiClient.clear();
     this.resetStore();
+    window.location.href = RoutePaths[Routes.login].path;
   };
 
   cleanupPreferences = async () => {

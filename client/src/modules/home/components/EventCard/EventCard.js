@@ -28,8 +28,8 @@ const EventCard = ({
   const startTime = eventReader.startTime(item);
   const endTime = eventReader.endTime(item);
 
-  const formattedStartTime = format(startTime, DateFormats.HOUR_MINUTE_AM_PM);
-  const formattedEndTime = format(endTime, DateFormats.HOUR_MINUTE_AM_PM);
+  const formattedStartTime = format(startTime, DateFormats.MONTH_DAY_HOUR_MINUTE);
+  const formattedEndTime = format(endTime, DateFormats.MONTH_DAY_HOUR_MINUTE);
 
   const onAdaptedSuccess = useCallback(() => onSuccess?.(item), [item, onSuccess]);
 

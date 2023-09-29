@@ -6,6 +6,14 @@
     text-decoration: none;
     color: inherit;
 }
+.userContainer {
+    margin-right: 16px;
+}
+
+.user {
+    font-size: 18px;
+    font-weight: 500;
+}
 
 .space {
     flex-grow: 1;

@@ -44,7 +44,7 @@ export const useLazyFetch = ({ fetchData, onSuccess, onFailure, onProgress }, in
       setMeta({ loading: true, error: null });
       onProgressRef.current?.();
 
-      fetchData(...args)
+      return fetchData(...args)
         .then(response => {
           setData(response);
           onSuccessRef?.current(response?.data);

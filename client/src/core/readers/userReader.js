@@ -7,7 +7,7 @@ const userReader = {
   firstName: _property('firstName'),
   lastName: _property('lastName'),
   fullName: user => {
-    return userReader.firstName(user) + userReader.lastName(user);
+    return userReader.firstName(user) + ' ' + userReader.lastName(user);
   },
 };
 
