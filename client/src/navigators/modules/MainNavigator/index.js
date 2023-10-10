@@ -1,3 +1,3 @@
-import MainNavigator from './MainNavigator.container';
+import MainNavigator from './MainNavigator';
 
 export default MainNavigator;
