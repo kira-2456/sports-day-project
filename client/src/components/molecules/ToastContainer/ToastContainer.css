@@ -1,0 +1,46 @@
+.container {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    pointer-events: none;
+}
+
+.sectionContainer {
+    width: 250px;
+    max-height: 100vh;
+
+    overflow-y: auto;
+    position: fixed;
+}
+
+.container-top-left {
+    top: 0;
+    left: 0;
+
+    padding-left: 16px;
+}
+
+.container-top-right {
+    top: 0;
+    right: 0;
+
+    padding-right: 16px;
+}
+
+.container-bottom-left {
+    bottom: 0;
+    left: 0;
+
+    padding-left: 16px;
+}
+
+.container-bottom-right {
+    bottom: 0;
+    right: 0;
+
+    padding-right: 16px;
+}

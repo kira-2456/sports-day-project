@@ -1,0 +1,15 @@
+const POSITION_TYPES = {
+  TOP_LEFT: 'TOP_LEFT',
+  TOP_RIGHT: 'TOP_RIGHT',
+  BOTTOM_LEFT: 'BOTTOM_LEFT',
+  BOTTOM_RIGHT: 'BOTTOM_RIGHT',
+};
+
+export const POSITION_TYPES_VS_CSS_CLASS = {
+  [POSITION_TYPES.TOP_LEFT]: 'top-left',
+  [POSITION_TYPES.TOP_RIGHT]: 'top-right',
+  [POSITION_TYPES.BOTTOM_LEFT]: 'bottom-left',
+  [POSITION_TYPES.BOTTOM_RIGHT]: 'bottom-right',
+};
+
+export default POSITION_TYPES;
